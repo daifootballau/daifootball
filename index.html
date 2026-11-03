@@ -88,7 +88,7 @@ function render(){
  draw(b,a);table();
 }
 function mk(id,cfg){if(charts[id])charts[id].destroy();const c=css("--ink"),l=css("--line");
- cfg.options=Object.assign({responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c}}},scales:{x:{ticks:{color:c},grid:{color:l}},y:{ticks:{color:c},grid:{color:l},beginAtZero:true}}},cfg.options||{});
+ const o=cfg.options||{},sc=o.scales||{},ax=a=>Object.assign({grid:{color:l},beginAtZero:true},sc[a],{ticks:Object.assign({color:c},(sc[a]||{}).ticks)});cfg.options=Object.assign({responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c}}}},o,{scales:{x:ax('x'),y:ax('y')}});
  if(cfg.stk){cfg.options.scales.x.stacked=cfg.options.scales.y.stacked=true}
  charts[id]=new Chart(document.getElementById(id),cfg)}
 const ds=(l,d,c)=>({label:l,data:d,backgroundColor:c});
